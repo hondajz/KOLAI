@@ -3,11 +3,11 @@
 # All keys map directly to CLI flags or config.json fields.
 
 run:
-  model: kwaivgi/kling-v3-motion-control
-  model_fallback: kwaivgi/kling-2.6
+  model_fallback: kwaivgi/kling-v3-motion-control
+  model: kwaivgi/kling-2.6-motion-control
 
   # Inputs — use URLs or paths relative to project root (under src/)
-  image: src/image.jpg
+  image: src/photo.jpeg
   video: src/video.mp4
 
   # Motion-control prompt
