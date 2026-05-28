@@ -3,7 +3,7 @@
   "model": "kwaivgi/kling-v2.6-motion-control",
   "model_fallback": "kwaivgi/kling-v3-motion-control",
   "prompt": "A short text prompt controlling motion",
-  "image": "src/image.jpg",
+  "image": "src/photo.jpeg",
   "video": "src/video.mp4",
   "steps": 30,
   "scale": 7.5,
