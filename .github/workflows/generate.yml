@@ -1,0 +1,80 @@
+name: Generate Kling Video
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: "Input image — public URL or filename inside src/ (e.g. src/image.jpg)"
+        required: true
+        default: "src/image.jpg"
+      video:
+        description: "Reference video — public URL or filename inside src/ (e.g. src/video.mp4)"
+        required: true
+        default: "src/video.mp4"
+      prompt:
+        description: "Motion-control text prompt"
+        required: true
+        default: "Camera slowly zooms in while the subject walks forward"
+      model:
+        description: "Replicate model ID"
+        required: false
+        default: "kwaivgi/kling-v2.6-motion-control"
+      steps:
+        description: "Inference steps"
+        required: false
+        default: "30"
+      scale:
+        description: "Guidance scale"
+        required: false
+        default: "7.5"
+
+jobs:
+  generate:
+    name: Run KOLAI Video Generation
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # needed to commit output.mp4 back to the repo
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run video generation
+        env:
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+        run: |
+          python generate.py \
+            --image "${{ github.event.inputs.image }}" \
+            --video "${{ github.event.inputs.video }}" \
+            --prompt "${{ github.event.inputs.prompt }}" \
+            --model "${{ github.event.inputs.model }}" \
+            --steps ${{ github.event.inputs.steps }} \
+            --scale ${{ github.event.inputs.scale }} \
+            --output output/output.mp4 \
+            --force
+
+      - name: Upload output.mp4 as Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-video
+          path: output/output.mp4
+          retention-days: 30
+
+      - name: Commit output.mp4 back to repository
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/output.mp4
+          git diff --cached --quiet && echo "No changes to commit" || \
+            git commit -m "ci: add generated output.mp4 [skip ci]"
+          git push
