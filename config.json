@@ -1,0 +1,11 @@
+{
+  "replicate_api_token": "<PUT_TOKEN_HERE>",
+  "model": "kwaivgi/kling-v3-motion-control",
+  "model_fallback": "kwaivgi/kling-2.6",
+  "prompt": "A short text prompt controlling motion",
+  "image": "src/image.jpg",
+  "video": "src/video.mp4",
+  "steps": 30,
+  "scale": 7.5,
+  "output_file": "output/output.mp4"
+}

@@ -1,0 +1,31 @@
+# generate.yml — sample run configuration for KOLAI
+# Use this as a reference for CI pipelines or scripted runs.
+# All keys map directly to CLI flags or config.json fields.
+
+run:
+  model: kwaivgi/kling-v3-motion-control
+  model_fallback: kwaivgi/kling-2.6
+
+  # Inputs — use URLs or paths relative to project root (under src/)
+  image: src/image.jpg
+  video: src/video.mp4
+
+  # Motion-control prompt
+  prompt: "Camera slowly zooms in while the subject walks forward"
+
+  # Inference parameters
+  steps: 30
+  scale: 7.5
+
+  # Output
+  output_file: output/output.mp4
+  force: false   # set true to skip overwrite confirmation
+
+# Example equivalent CLI invocation:
+#   python generate.py \
+#     --image src/image.jpg \
+#     --video src/video.mp4 \
+#     --prompt "Camera slowly zooms in while the subject walks forward" \
+#     --steps 30 \
+#     --scale 7.5 \
+#     --force
