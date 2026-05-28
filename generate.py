@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 KOLAI — Kling AI Video Generator
-Generates an AI video using Kling V3 (or V2.6 fallback) via Replicate.
+Generates an AI video using Kling V2.6 (or V3.0 fallback) via Replicate.
 """
 
 import argparse
@@ -19,8 +19,8 @@ import requests
 CONFIG_FILE = Path(__file__).parent / "config.json"
 DEFAULT_CONFIG = {
     "replicate_api_token": "",
-    "model": "kwaivgi/kling-v3-motion-control",
-    "model_fallback": "kwaivgi/kling-2.6",
+    "model": "kwaivgi/kling-v2.6-motion-control",
+    "model_fallback": "kling-v3-motion-control",
     "prompt": "A short text prompt controlling motion",
     "steps": 30,
     "scale": 7.5,
