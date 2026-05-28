@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Secrets — never commit your real token
+# (keep config.json with placeholder only)
+
+# Input/output media — usually too large for git
+src/*.jpg
+src/*.jpeg
+src/*.png
+src/*.mp4
+src/*.mov
+src/*.webm
+# Allow output.mp4 to be committed by GitHub Actions
+# output/*.mp4   ← intentionally not ignored so CI can push results
+output/*.mov
+output/*.webm
+
+# Keep the output folder itself
+!output/.gitkeep
+!output/output.mp4
+
+# OS
+.DS_Store
+Thumbs.db
